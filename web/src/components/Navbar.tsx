@@ -118,14 +118,8 @@ const Navbar = () => {
           <Link href="/works" passHref>
             <Anchor isActive={router.pathname.includes('/works')}>Works</Anchor>
           </Link>
-          <Link href="/notes" passHref>
-            <Anchor isActive={router.pathname.includes('/notes')}>Notes</Anchor>
-          </Link>
           <Link href="/blog" passHref>
             <Anchor isActive={router.pathname.includes('/blog')}>Blog</Anchor>
-          </Link>
-          <Link href="/chill" passHref>
-            <Anchor isActive={router.pathname.includes('/chill')}>Chill</Anchor>
           </Link>
           <div>
             <ToggleMode />
