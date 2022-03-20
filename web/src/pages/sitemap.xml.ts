@@ -8,7 +8,7 @@ const generateSitemap = (posts) => {
     .map(
       (post) => `
         <url>
-            <loc>${`https://chivongv.se/blog/${post.slug}`}</loc>
+            <loc>${`https://chivongv.vercel.app/blog/${post.slug}`}</loc>
             <lastmod>${formatDate(post.updatedDate)}</lastmod>
             <priority>0.50</priority>
         </url>`,
@@ -18,11 +18,11 @@ const generateSitemap = (posts) => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
-            <loc>https://chivongv.se/</loc>
+            <loc>https://chivongv.vercel.app/</loc>
             <priority>1.00</priority>
         </url>
         <url>
-            <loc>https://chivongv.se/blog/</loc>
+            <loc>https://chivongv.vercel.app/blog/</loc>
             <priority>0.80</priority>
         </url>
         ${urls}

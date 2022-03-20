@@ -1,6 +1,5 @@
 const sharedFields = `
   _id,
-  name,
   excerpt,
   publishedDate,
   updatedDate,
@@ -28,7 +27,7 @@ export const notesIndexQuery = `
 
 export const noteQuery = `
 {
-  "note": *[_type == "note" && slug.current == $slug] | order(updatedDate desc) | [0] {
+  "note": *[_type == "note" && slug.current == $slug] | order(updatedDate desc)[0] {
     ${sharedFields}
     body,
   },
@@ -61,14 +60,10 @@ export const postsSitemapQuery = `
 
 export const postQuery = `
 {
-  "post": *[_type == "post" && slug.current == $slug] | order(updatedDate desc) | [0] {
+  "post": *[_type == "post" && slug.current == $slug] | order(updatedDate desc)[0] {
     ${sharedFields}
     body,
   },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(publishedDate desc, updatedDate desc) | [0...2] {
-    ${sharedFields}
-    body,
-  }
 }`;
 
 export const postSlugsQuery = `

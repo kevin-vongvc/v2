@@ -2,7 +2,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import { FaLongArrowAltRight } from 'react-icons/fa';
-import { BlogPost } from 'types/blogpost';
+import { BlogPostType } from 'types/blogpost';
 
 const Container = styled('div')({
   display: 'flex',
@@ -90,7 +90,7 @@ const Highlight = styled('span')({
 });
 
 type Props = {
-  data: BlogPost;
+  data: BlogPostType;
 };
 
 const BlogPostCard: React.FC<Props> = ({ data }) => {
@@ -119,7 +119,7 @@ const BlogPostCard: React.FC<Props> = ({ data }) => {
   const handleClick = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(
-        `https://chivongv.se/blog/${encodeURIComponent(slug)}`,
+        `https://chivongv.vercel.app/blog/${encodeURIComponent(slug)}`,
       );
       setCopied(true);
     }

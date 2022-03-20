@@ -1,23 +1,30 @@
 import styled from '@emotion/styled/macro';
-import { urlForImage } from '@lib/sanity';
+import { urlFor } from '@lib/sanity';
+import { PortableTextComponent } from '@portabletext/react';
+
+export type FigureBlockProps = {
+  _type: 'figure';
+  alt: string;
+  caption: string;
+};
 
 const Caption = styled('figcaption')({
   textAlign: 'center',
 });
 
-const FigureBlock = ({ node }) => {
-  if (!node || !node.asset) {
+const FigureBlock: PortableTextComponent<FigureBlockProps> = ({ value }) => {
+  if (typeof value === 'undefined' || !value) {
     return null;
   }
 
   return (
     <figure>
       <img
-        src={urlForImage(node, 400).url()}
-        alt={node.alt}
+        src={urlFor(value).width(400).url()}
+        alt={value.alt}
         style={{ borderRadius: 2 }}
       />
-      {node.caption && <Caption>{node.caption}</Caption>}
+      {value.caption && <Caption>{value.caption}</Caption>}
     </figure>
   );
 };

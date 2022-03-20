@@ -13,8 +13,8 @@ const SocialBar = dynamic(() => import('@components/SocialBar'));
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const BlogPostCard = dynamic(() => import('@components/cards/BlogPostCard'));
 const SearchInput = dynamic(() => import('@components/SearchInput'));
-import generateRss from 'lib/rss';
-import { BlogPost } from 'types/blogpost';
+import generateRss from '@lib/rss';
+import { BlogPostType } from 'types/blogpost';
 
 const Container = styled('div')({
   display: 'flex',
@@ -90,7 +90,7 @@ const Blog = ({ allPosts, preview }) => {
         />
         {preview && <AlertPreview redirect="blog" />}
         <PostList>
-          {filteredPosts.map((post: BlogPost, index) => {
+          {filteredPosts.map((post: BlogPostType, index) => {
             return (
               <BlogPostWrapper
                 key={index}

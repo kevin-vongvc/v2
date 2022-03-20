@@ -4,4 +4,4 @@ Disallow: /chill
 Disallow: /notes
 Allow: /
 Allow: /blog
-Sitemap: https://chivongv.se/sitemap.xml
+Sitemap: https://chivongv.vercel.app/sitemap.xml

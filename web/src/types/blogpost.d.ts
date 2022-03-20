@@ -1,4 +1,4 @@
-export type BlogPost = {
+export type BlogPostType = {
   slug: string;
   title: string;
   author: {
@@ -8,6 +8,6 @@ export type BlogPost = {
   publishedDate: Datetime;
   updatedDate: Datetime;
   coverImage: string;
-  body: unknown;
+  body: TypedObject | TypedObject[];
   tags: string[];
 };

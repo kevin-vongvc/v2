@@ -6,12 +6,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
+import { PortableText } from '@portabletext/react';
 
 import { NotePost } from 'types/notepost';
 import { Breakpoints } from '@styles/breakpoints';
 import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
 import { noteQuery, noteSlugsQuery } from '@lib/queries';
-import { PortableText, usePreviewSubscription } from '@lib/sanity';
+import { usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
 const NotFound = dynamic(() => import('@pages/404'));
@@ -146,7 +147,7 @@ const Note: FC<Props> = ({ data, preview }) => {
 
   const { note } = mdata;
 
-  const noteURL = `https://chivongv.se/notes/${slug}`;
+  const noteURL = `https://chivongv.vercel.app/notes/${slug}`;
 
   return (
     <Layout
@@ -172,7 +173,7 @@ const Note: FC<Props> = ({ data, preview }) => {
             )}
             <NoteBody>
               <ContentWrapper>
-                <PortableText blocks={note.body} />
+                <PortableText value={note.body} />
                 <Link href="/notes" passHref>
                   <BackTo>
                     <FaLongArrowAltLeft /> Back to notes

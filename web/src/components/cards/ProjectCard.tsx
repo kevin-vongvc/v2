@@ -2,7 +2,7 @@ import styled from '@emotion/styled/macro';
 import { FaGithub, FaGitlab, FaExternalLinkAlt } from 'react-icons/fa';
 
 import { Breakpoints } from '@styles/breakpoints';
-import { urlForImage } from '@lib/sanity';
+import { urlFor } from '@lib/sanity';
 import { urlForFile } from '@utils/urlForFile';
 
 const Container = styled('div')({
@@ -188,7 +188,7 @@ const ProjectCard = ({ data }) => {
             ) : coverImage && coverImage.asset ? (
               <img
                 loading="lazy"
-                src={urlForImage(coverImage, 400).url()}
+                src={urlFor(coverImage).width(400).url()}
                 alt={title}
               />
             ) : null}

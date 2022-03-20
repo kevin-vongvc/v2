@@ -1,4 +1,11 @@
 import styled from '@emotion/styled/macro';
+import { PortableTextComponent } from '@portabletext/react';
+
+export type BreakBlockProps = {
+  _type: 'object';
+  style: string;
+  height: number;
+};
 
 const EmptyBreak = styled('div')<{ height?: number }>(({ height }) => ({
   height: height ? height : 50,
@@ -11,14 +18,18 @@ const LineBreak = styled('div')<{ height?: number }>(({ height }) => ({
   justifyContent: 'center',
 }));
 
-const BreakBlock = ({ node }) => {
-  switch (node.style) {
+const BreakBlock: PortableTextComponent<BreakBlockProps> = ({ value }) => {
+  if (typeof value === 'undefined' || !value) {
+    return null;
+  }
+
+  switch (value.style) {
     case 'emptyBreak': {
-      return <EmptyBreak height={node.height} />;
+      return <EmptyBreak height={value.height} />;
     }
     case 'lineBreak': {
       return (
-        <LineBreak height={node.height}>
+        <LineBreak height={value.height}>
           <hr />
         </LineBreak>
       );

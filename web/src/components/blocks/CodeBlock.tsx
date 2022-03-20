@@ -5,6 +5,14 @@ import { FiCopy } from 'react-icons/fi';
 
 import syntaxTheme from '@styles/syntax-theme';
 import { mapCodeLanguages } from '@utils/codeLanguages-utils';
+import { PortableTextComponent } from '@portabletext/react';
+
+export type CodeBlockProps = {
+  _type: 'code';
+  code: string;
+  language?: string;
+  filename?: string;
+};
 
 const Header = styled('div')({
   display: 'flex',
@@ -52,12 +60,12 @@ const CodeWrapper = styled(SyntaxHighlighter)({
   overflow: 'auto',
 });
 
-const CodeBlock = ({ node }) => {
-  if (!node || !node.code) {
+const CodeBlock: PortableTextComponent<CodeBlockProps> = ({ value }) => {
+  if (typeof value === 'undefined' || !value) {
     return null;
   }
   const [copied, setCopied] = React.useState(false);
-  const { language, code, filename } = node;
+  const { language, code, filename } = value;
 
   React.useEffect(() => {
     let id = null;

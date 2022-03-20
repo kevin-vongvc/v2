@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
             rel="alternate"
             type="application/rss+xml"
             title="Chi Vong's blog posts"
-            href="https://chivongv.se/rss.xml"
+            href="https://chivongv.vercel.app/rss.xml"
           />
         </Head>
         <body>

@@ -8,6 +8,6 @@ export type NotePost = {
   publishedDate: Datetime;
   updatedDate: Datetime;
   coverImage: string;
-  body: unknown;
+  body: TypedObject | TypedObject[];
   tags: string[];
 };

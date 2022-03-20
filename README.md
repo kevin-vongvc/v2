@@ -2,7 +2,7 @@ This is a portfolio project built with [Next.js](https://nextjs.org/).
 
 ## 🚨 Forking this repo
 
-You can fork this repo and use it. But please give me proper credit by linking back to [chivongv.se](https://chivongv.se). Thanks!
+You can fork this repo and use it. But please give me proper credit by linking back to [chivongv.vercel.app](https://chivongv.vercel.app). Thanks!
 
 ## Getting Started
 

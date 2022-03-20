@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic';
 import {
-  createImageUrlBuilder,
-  createPortableTextComponent,
+  createCurrentUserHook,
   createPreviewSubscriptionHook,
 } from 'next-sanity';
+import createImageUrlBuilder from '@sanity/image-url';
+import { PortableTextComponents } from '@portabletext/react';
 const AccordionBlock = dynamic(() => import('@blocks/AccordionBlock'));
 const BreakBlock = dynamic(() => import('@blocks/BreakBlock'));
 const CodeBlock = dynamic(() => import('@blocks/CodeBlock'));
@@ -12,7 +13,7 @@ const GIFBlock = dynamic(() => import('@blocks/GIFBlock'));
 const YouTubeBlock = dynamic(() => import('@blocks/YouTubeBlock'));
 import { sanityConfig } from './config';
 
-export const serializers = {
+export const ptComponents: PortableTextComponents = {
   types: {
     accordion: AccordionBlock,
     break: BreakBlock,
@@ -23,21 +24,12 @@ export const serializers = {
   },
 };
 
+export const urlFor = (source) =>
+  createImageUrlBuilder(sanityConfig).image(source);
+
 export const imageBuilder = createImageUrlBuilder(sanityConfig);
 
-export const urlForImage = (source, width = 0) => {
-  if (width) {
-    return imageBuilder.image(source).width(width);
-  } else {
-    return imageBuilder.image(source).auto('format').fit('max');
-  }
-};
+export const usePreviewSubscription =
+  createPreviewSubscriptionHook(sanityConfig);
 
-export const usePreviewSubscription = createPreviewSubscriptionHook(
-  sanityConfig,
-);
-
-export const PortableText = createPortableTextComponent({
-  ...sanityConfig,
-  serializers: serializers,
-});
+export const useCurrentUser = createCurrentUserHook(sanityConfig);

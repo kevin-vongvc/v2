@@ -1,5 +1,15 @@
 import styled from '@emotion/styled/macro';
+import { PortableTextComponent } from '@portabletext/react';
 import { urlForFile } from '@utils/urlForFile';
+
+export type GIFBlockProps = {
+  _type: 'gif';
+  title: string;
+  mp4?: File;
+  webm?: File;
+  ogg?: File;
+  caption?: string;
+};
 
 const Container = styled('div')({
   maxWidth: 600,
@@ -10,26 +20,26 @@ const Caption = styled('figcaption')({
   textAlign: 'center',
 });
 
-const GIFBlock = ({ node }) => {
-  if (!node || (!node.mp4 && !node.webm && !node.ogg)) {
+const GIFBlock: PortableTextComponent<GIFBlockProps> = ({ value }) => {
+  if (!value || (!value.mp4 && !value.webm && !value.ogg)) {
     return null;
   }
 
   return (
     <Container>
       <video width="100%" autoPlay loop muted>
-        {node.webm && (
-          <source src={`${urlForFile(node.webm)}`} type="video/webm" />
+        {value.webm && (
+          <source src={`${urlForFile(value.webm)}`} type="video/webm" />
         )}
-        {node.mp4 && (
-          <source src={`${urlForFile(node.mp4)}`} type="video/mp4" />
+        {value.mp4 && (
+          <source src={`${urlForFile(value.mp4)}`} type="video/mp4" />
         )}
-        {node.ogg && (
-          <source src={`${urlForFile(node.ogg)}`} type="video/ogg" />
+        {value.ogg && (
+          <source src={`${urlForFile(value.ogg)}`} type="video/ogg" />
         )}
         Your browser does not support the video tag.
       </video>
-      {node.caption && <Caption>{node.caption}</Caption>}
+      {value.caption && <Caption>{value.caption}</Caption>}
     </Container>
   );
 };

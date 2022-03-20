@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -6,12 +6,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
+import { PortableText } from '@portabletext/react';
 
-import { BlogPost } from 'types/blogpost';
+import { BlogPostType } from 'types/blogpost';
 import { Breakpoints } from '@styles/breakpoints';
 import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
 import { postQuery, postSlugsQuery } from '@lib/queries';
-import { PortableText, usePreviewSubscription } from '@lib/sanity';
+import { ptComponents, usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
 const NotFound = dynamic(() => import('@pages/404'));
@@ -126,13 +127,12 @@ const PostLink = styled('a')({
 
 type Props = {
   data: {
-    post: BlogPost;
-    morePosts: BlogPost;
+    post: BlogPostType;
   };
   preview: boolean;
 };
 
-const Post: FC<Props> = ({ data, preview }) => {
+const BlogPost: React.FC<Props> = ({ data, preview }) => {
   const router = useRouter();
   const slug = data?.post?.slug;
   const { data: mdata } = usePreviewSubscription(postQuery, {
@@ -145,9 +145,8 @@ const Post: FC<Props> = ({ data, preview }) => {
     return <NotFound />;
   }
 
-  const { post, morePosts } = mdata;
-
-  const postURL = `https://chivongv.se/blog/${slug}`;
+  const { post } = mdata;
+  const postURL = `https://chivongv.vercel.app/blog/${slug}`;
 
   return (
     <Layout
@@ -173,7 +172,7 @@ const Post: FC<Props> = ({ data, preview }) => {
             )}
             <PostBody>
               <ContentWrapper>
-                <PortableText blocks={post.body} />
+                <PortableText value={post.body} components={ptComponents} />
                 <Link href="/blog" passHref>
                   <BackTo>
                     <FaLongArrowAltLeft /> Back to blog
@@ -216,7 +215,7 @@ const Post: FC<Props> = ({ data, preview }) => {
 };
 
 export async function getStaticProps({ params, preview = false }) {
-  const { post, morePosts } = await getClient(preview).fetch(postQuery, {
+  const { post } = await getClient(preview).fetch(postQuery, {
     slug: params.slug,
   });
 
@@ -225,7 +224,6 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         post,
-        morePosts: overlayDrafts(morePosts),
       },
     },
     revalidate: 10,
@@ -234,10 +232,11 @@ export async function getStaticProps({ params, preview = false }) {
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery);
+
   return {
     paths: paths?.map((slug) => ({ params: { slug } })) || [],
     fallback: true,
   };
 }
 
-export default Post;
+export default BlogPost;

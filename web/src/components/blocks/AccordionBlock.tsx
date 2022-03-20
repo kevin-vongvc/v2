@@ -1,7 +1,16 @@
 import useCollapse from 'react-collapsed';
 import styled from '@emotion/styled/macro';
 import { IoIosArrowDown } from 'react-icons/io';
-import { PortableText } from '@lib/sanity';
+import { PortableText, PortableTextComponent } from '@portabletext/react';
+
+export type AccordionBlockProps = {
+  _type: 'accordion';
+  showMoreText: string;
+  showLessText: string;
+  content: any;
+  isOpen?: boolean;
+  collapseDirection: string;
+};
 
 const Container = styled('div')({
   marginBottom: '1.5em',
@@ -53,26 +62,28 @@ const Content = styled('section')({
   },
 });
 
-const AccordionBlock = ({ node }) => {
+const AccordionBlock: PortableTextComponent<AccordionBlockProps> = ({
+  value,
+}) => {
   if (typeof window === 'undefined') {
+    return null;
+  }
+  if (typeof value === 'undefined' || !value || !value.content) {
     return null;
   }
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     easing: 'ease-in-out',
-    defaultExpanded: node.isOpen || false,
+    defaultExpanded: value.isOpen || false,
   });
-  if (!node || !node.content) {
-    return null;
-  }
 
-  const { showMoreText, showLessText, content, collapseDirection } = node;
+  const { showMoreText, showLessText, content, collapseDirection } = value;
 
   if (collapseDirection === 'up') {
     return (
       <Container>
         <Content {...getCollapseProps()}>
-          <PortableText blocks={content} />
+          <PortableText value={content} />
         </Content>
         <Header isOpen={isExpanded} {...getToggleProps()}>
           <Title>{isExpanded ? showLessText : showMoreText}</Title>
@@ -93,7 +104,7 @@ const AccordionBlock = ({ node }) => {
         </Arrow>
       </Header>
       <Content {...getCollapseProps()}>
-        <PortableText blocks={content} />
+        <PortableText value={content} />
       </Content>
     </Container>
   );
