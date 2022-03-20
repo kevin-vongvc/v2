@@ -6,7 +6,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { worksIndexQuery } from '@lib/queries';
 import { getClient, overlayDrafts } from '@lib/sanity.server';
 import { Breakpoints } from '@styles/breakpoints';
-const Layout = dynamic(() => import('@components/Layout'));
+import Layout from '@components/Layout';
 const ProjectCard = dynamic(() => import('@components/cards/ProjectCard'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));

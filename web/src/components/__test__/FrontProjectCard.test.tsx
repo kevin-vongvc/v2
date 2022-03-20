@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { render } from '../../test-utils';
-import WorkCard from '../cards/WorkCard';
+import FrontProjectCard from '../cards/FrontProjectCard';
 
-describe('WorkCard component', () => {
+describe('FrontProjectCard component', () => {
   let data = {
     title: 'Test title',
     source: 'www.github.com',
@@ -13,7 +13,7 @@ describe('WorkCard component', () => {
   };
 
   test('Should render title, excerpt and tags', () => {
-    const { getByText } = render(<WorkCard data={data} />);
+    const { getByText } = render(<FrontProjectCard data={data} />);
     const title = getByText(data.title);
     const excerpt = getByText(data.excerpt);
     expect(title).toBeVisible();

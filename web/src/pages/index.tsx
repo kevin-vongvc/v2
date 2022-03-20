@@ -1,33 +1,33 @@
 import dynamic from 'next/dynamic';
 
-import { Work } from 'types/work';
-import { allWorksForHomeQuery } from '@lib/queries';
+import { frontProjectsQuery } from '@lib/queries';
 import { getClient, overlayDrafts } from '@lib/sanity.server';
 import Layout from '@components/Layout';
+import { FrontProjectType } from 'types/project';
 const Hero = dynamic(() => import('@sections/Hero'));
-const Works = dynamic(() => import('@sections/Works'));
+const FrontProjects = dynamic(() => import('@sections/FrontProjects'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 
 type Props = {
-  works: Work[];
+  projects: FrontProjectType[];
 };
 
-const Home = ({ works }: Props) => {
+const Home = ({ projects }: Props) => {
   return (
     <Layout title="Chi Vong | Software Engineer">
       <Hero />
-      <Works works={works} />
+      <FrontProjects projects={projects} />
       <SocialBar />
     </Layout>
   );
 };
 
 export async function getStaticProps({ preview = false }) {
-  const works = overlayDrafts(
-    await getClient(preview).fetch(allWorksForHomeQuery),
+  const projects = overlayDrafts(
+    await getClient(preview).fetch(frontProjectsQuery),
   );
   return {
-    props: { works, preview },
+    props: { projects, preview },
     revalidate: 60,
   };
 }

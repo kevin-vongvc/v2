@@ -53,7 +53,7 @@ const ProjectLinks = styled('div')({
   },
 });
 
-const Name = styled('h2')({
+const Name = styled('a')({
   margin: '10px 0 7px',
   fontSize: 'calc(0.8rem + 0.4vw)',
   color: 'var(--colors-primary)',
@@ -131,15 +131,22 @@ const IconSelector = (link = 'github') => {
 
 const ProjectCard = ({ data }) => {
   if (data) {
-    const { title, source, demo, body, gif, coverImage, tags } = data;
+    const { title, source, demo, gif, coverImage, tags, slug, excerpt } = data;
 
     return (
       <Container>
         <TwoCol>
           <Content>
-            {title ? <Name>{title}</Name> : null}
+            {title ? (
+              <Name
+                href={`/works/${encodeURIComponent(slug)}`}
+                rel="nofollow noopener noreferrer"
+              >
+                {title}
+              </Name>
+            ) : null}
             <Body>
-              <p>{body}</p>
+              <p>{excerpt}</p>
             </Body>
             {source || demo ? (
               <ProjectLinks>
@@ -185,7 +192,7 @@ const ProjectCard = ({ data }) => {
                 )}
                 Your browser does not support the video tag.
               </video>
-            ) : coverImage && coverImage.asset ? (
+            ) : coverImage ? (
               <img
                 loading="lazy"
                 src={urlFor(coverImage).width(400).url()}

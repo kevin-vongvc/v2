@@ -5,7 +5,11 @@ import styled from '@emotion/styled/macro';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-const WorkCard = dynamic(() => import('@components/cards/WorkCard'));
+import { FrontProjectType } from 'types/project';
+
+const FrontProjectCard = dynamic(
+  () => import('@components/cards/FrontProjectCard'),
+);
 
 const Container = styled(motion.div)({
   display: 'flex',
@@ -22,7 +26,7 @@ const Title = styled(motion.h2)({
   color: 'var(--colors-primary)',
 });
 
-const WorkList = styled(motion.ul)({
+const ProjectList = styled(motion.ul)({
   marginTop: 20,
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
@@ -72,20 +76,11 @@ const moveRight = {
   },
 };
 
-type Work = {
-  _id: string;
-  demo: string;
-  excerpt: string;
-  source: string;
-  tags: string[];
-  title: string;
-};
-
 type Props = {
-  works: Work[];
+  projects: FrontProjectType[];
 };
 
-const Works = ({ works }: Props) => {
+const FrontProjects: React.FC<Props> = ({ projects }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({ threshold: 0 });
 
@@ -95,7 +90,7 @@ const Works = ({ works }: Props) => {
     }
   }, [controls, inView]);
 
-  if (works && works.length > 0) {
+  if (projects && projects.length > 0) {
     return (
       <Container
         id="works"
@@ -104,22 +99,22 @@ const Works = ({ works }: Props) => {
         variants={moveRight}
       >
         <Title>Some Things I&#39;ve Built</Title>
-        <WorkList ref={ref} animate={controls} variants={moveUp}>
-          {works.map((work, i) => {
-            if (work) {
+        <ProjectList ref={ref} animate={controls} variants={moveUp}>
+          {projects.map((project, i) => {
+            if (project) {
               return (
                 <motion.li
-                  key={work._id}
+                  key={project._id}
                   whileHover={{ translateY: -10 }}
                   whileFocus={{ translateY: -10 }}
                 >
-                  <WorkCard data={work} />
+                  <FrontProjectCard data={project} />
                 </motion.li>
               );
             }
             return null;
           })}
-        </WorkList>
+        </ProjectList>
         <Wrapper>
           <Link href="/works" passHref>
             <Anchor>See more works</Anchor>
@@ -132,4 +127,4 @@ const Works = ({ works }: Props) => {
   return null;
 };
 
-export default Works;
+export default FrontProjects;

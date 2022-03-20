@@ -14,7 +14,7 @@ const Container = styled('div')({
   justifyContent: 'center',
 });
 
-const WorkLinks = styled.div({
+const ProjectLinks = styled.div({
   display: 'flex',
   justifyContent: 'flex-end',
   marginRight: 10,
@@ -76,14 +76,14 @@ const IconSelector = (link = 'github') => {
   }
 };
 
-const WorkCard = ({ data }) => {
+const FrontProjectCard = ({ data }) => {
   if (data) {
     const { title, source, demo, excerpt, tags } = data;
 
     return (
       <Container>
         {source || demo ? (
-          <WorkLinks>
+          <ProjectLinks>
             {source ? (
               <a
                 href={source}
@@ -98,7 +98,7 @@ const WorkCard = ({ data }) => {
                 <FaExternalLinkAlt /> Demo
               </a>
             ) : null}
-          </WorkLinks>
+          </ProjectLinks>
         ) : null}
         {title ? <Name>{title}</Name> : null}
         <Body>{excerpt}</Body>
@@ -116,4 +116,4 @@ const WorkCard = ({ data }) => {
   return null;
 };
 
-export default WorkCard;
+export default FrontProjectCard;

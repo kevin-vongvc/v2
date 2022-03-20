@@ -12,10 +12,12 @@ const sharedFields = `
 const sharedProjectFields = `
   _id,
   demo,
-  excerpt,
   source,
   tags,
   title,
+  gif,
+  'coverImage': coverImage.asset->url,
+  'slug': slug.current,
 `;
 
 export const notesIndexQuery = `
@@ -76,9 +78,10 @@ export const postBySlugQuery = `
   }
 `;
 
-export const allWorksForHomeQuery = `
+export const frontProjectsQuery = `
   *[_type == "project" && showOnFrontPage] | order(publishedDate desc){
     ${sharedProjectFields}
+    excerpt,
   }
 `;
 
@@ -86,8 +89,20 @@ export const worksIndexQuery = `
   *[_type == "project"]| order(publishedDate desc){ 
     ${sharedProjectFields}
     showOnFrontPage,
-    body,
-    gif,
-    coverImage
+    excerpt,
   }
 `;
+
+export const projectSlugsQuery = `
+  *[_type == "project" && defined(slug.current)][].slug.current
+`;
+
+export const projectQuery = `
+{
+  "project": *[_type == "project" && slug.current == $slug] | order(updatedDate desc)[0] {
+    ${sharedProjectFields}
+    body,
+    publishedDate,
+    updatedDate,
+  },
+}`;

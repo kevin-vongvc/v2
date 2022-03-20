@@ -71,7 +71,7 @@ const CodeBlock: PortableTextComponent<CodeBlockProps> = ({ value }) => {
     let id = null;
 
     if (copied) {
-      id = setTimeout(() => setCopied(false), 5000);
+      id = setTimeout(() => setCopied(false), 1500);
     }
 
     return () => {

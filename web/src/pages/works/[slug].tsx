@@ -8,10 +8,9 @@ import styled from '@emotion/styled/macro';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { PortableText } from '@portabletext/react';
 
-import { BlogPostType } from 'types/blogpost';
 import { Breakpoints } from '@styles/breakpoints';
-import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
-import { postQuery, postSlugsQuery } from '@lib/queries';
+import { getClient, sanityClient } from '@lib/sanity.server';
+import { postQuery, projectQuery, projectSlugsQuery } from '@lib/queries';
 import { ptComponents, usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
@@ -20,6 +19,7 @@ const ToTop = dynamic(() => import('@components/ToTop'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 import { formatDate } from '@utils/datetime-utils';
 import { BackTo, Time } from '@components/sharedPosts';
+import { ProjectType } from 'types/project';
 
 const Container = styled('article')({
   display: 'flex',
@@ -29,7 +29,7 @@ const Container = styled('article')({
   minHeight: '100vh',
 });
 
-const PostTitle = styled('h1')({
+const ProjectTitle = styled('h1')({
   color: 'var(--colors-primary)',
   margin: '0 10px 10px',
 });
@@ -43,7 +43,7 @@ const ImageWrapper = styled('div')({
   },
 });
 
-const PostBody = styled('section')({
+const ProjectBody = styled('section')({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -117,24 +117,24 @@ const ContentWrapper = styled('div')({
   },
 });
 
-const PostLinks = styled('div')({
+const ProjectLinks = styled('div')({
   textAlign: 'right',
 });
 
-const PostLink = styled('a')({
+const ProjectLink = styled('a')({
   color: 'var(--colors-primary)',
 });
 
 type Props = {
   data: {
-    post: BlogPostType;
+    project: ProjectType;
   };
   preview: boolean;
 };
 
-const BlogPost: React.FC<Props> = ({ data, preview }) => {
+const ProjectPost: React.FC<Props> = ({ data, preview }) => {
   const router = useRouter();
-  const slug = data?.post?.slug;
+  const slug = data?.project?.slug;
   const { data: mdata } = usePreviewSubscription(postQuery, {
     params: { slug },
     initialData: data,
@@ -145,66 +145,68 @@ const BlogPost: React.FC<Props> = ({ data, preview }) => {
     return <NotFound />;
   }
 
-  const { post } = mdata;
-  const postURL = `https://chivongv.vercel.app/blog/${slug}`;
+  const { project } = mdata;
+  const projectURL = `https://chivongv.vercel.app/works/${slug}`;
 
   return (
     <Layout
       title={
-        router.isFallback ? 'Loading...' : `${post.title} | Chi Vong's blog`
+        router.isFallback ? 'Loading...' : `${project.title} | Chi Vong's works`
       }
     >
       <Container>
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <ProjectTitle>Loading…</ProjectTitle>
         ) : (
           <>
             <Head>
               <title>
-                {post.title} | {post.author?.name}
+                {project.title} | {project.author?.name}
               </title>
             </Head>
-            <PostTitle>{post.title}</PostTitle>
-            {post.coverImage && (
+            <ProjectTitle>{project.title}</ProjectTitle>
+            {project.coverImage && (
               <ImageWrapper>
-                <Image src={post.coverImage} width="800" height="600" />
+                <Image src={project.coverImage} width="800" height="600" />
               </ImageWrapper>
             )}
-            <PostBody>
+            <ProjectBody>
               <ContentWrapper>
-                <PortableText value={post.body} components={ptComponents} />
-                <Link href="/blog" passHref>
+                <PortableText value={project.body} components={ptComponents} />
+                <Link href="/works" passHref>
                   <BackTo>
-                    <FaLongArrowAltLeft /> Back to blog
+                    <FaLongArrowAltLeft /> Back to works
                   </BackTo>
                 </Link>
-                <Time title="Last updated date">
-                  Last updated date {formatDate(post.updatedDate)}
-                </Time>
+                {project.updatedDate ? (
+                  <Time title="Last updated date">
+                    Last updated date {formatDate(project.updatedDate)}
+                  </Time>
+                ) : null}
               </ContentWrapper>
-              {preview && <AlertPreview redirect="blog" />}
-              <PostLinks>
-                <PostLink
+              {preview && <AlertPreview redirect="works" />}
+              <ProjectLinks>
+                <ProjectLink
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`https://twitter.com/search?q=${encodeURIComponent(
-                    postURL,
+                    projectURL,
                   )}`}
                 >
                   Discuss on Twitter
-                </PostLink>
+                </ProjectLink>
                 {` • `}
-                <PostLink
+                <ProjectLink
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://twitter.com/intent/tweet/?text=Great post by @chivongv ${encodeURIComponent(
-                    postURL,
+                  href={`https://twitter.com/intent/tweet/?text=Great project by @chivongv ${encodeURIComponent(
+                    projectURL,
                   )}`}
                 >
-                  Tweet about this post
-                </PostLink>
-              </PostLinks>
-            </PostBody>
+                  Tweet about this project
+                </ProjectLink>
+              </ProjectLinks>
+            </ProjectBody>
           </>
         )}
         <SocialBar />
@@ -215,7 +217,7 @@ const BlogPost: React.FC<Props> = ({ data, preview }) => {
 };
 
 export async function getStaticProps({ params, preview = false }) {
-  const { post } = await getClient(preview).fetch(postQuery, {
+  const { project } = await getClient(preview).fetch(projectQuery, {
     slug: params.slug,
   });
 
@@ -223,7 +225,7 @@ export async function getStaticProps({ params, preview = false }) {
     props: {
       preview,
       data: {
-        post,
+        project,
       },
     },
     revalidate: 10,
@@ -231,7 +233,7 @@ export async function getStaticProps({ params, preview = false }) {
 }
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(postSlugsQuery);
+  const paths = await sanityClient.fetch(projectSlugsQuery);
 
   return {
     paths: paths?.map((slug) => ({ params: { slug } })) || [],
@@ -239,4 +241,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default BlogPost;
+export default ProjectPost;

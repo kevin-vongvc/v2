@@ -27,6 +27,11 @@ export default {
       type: 'datetime',
     },
     {
+      name: 'updatedDate',
+      title: 'Last updated date',
+      type: 'datetime',
+    },
+    {
       name: 'excerpt',
       title: 'Excerpt',
       type: 'string',
@@ -53,7 +58,7 @@ export default {
     },
     {
       name: 'body',
-      type: 'string',
+      type: 'richText',
       title: 'Body text',
     },
     {
