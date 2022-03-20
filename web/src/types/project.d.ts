@@ -19,4 +19,10 @@ export type ProjectType = {
   coverImage: string;
   body: TypedObject | TypedObject[];
   tags: string[];
+  gif: {
+    mp4: File;
+    webm: File;
+    ogg: File;
+    caption: string;
+  };
 };

@@ -18,6 +18,7 @@ const NotFound = dynamic(() => import('@pages/404'));
 const ToTop = dynamic(() => import('@components/ToTop'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 import { formatDate } from '@utils/datetime-utils';
+import { urlForFile } from '@utils/urlForFile';
 import { BackTo, Time } from '@components/sharedPosts';
 import { ProjectType } from 'types/project';
 
@@ -34,9 +35,18 @@ const ProjectTitle = styled('h1')({
   margin: '0 10px 10px',
 });
 
-const ImageWrapper = styled('div')({
+const VideoWrapper = styled('div')({
   width: '100%',
   maxWidth: 800,
+  margin: '0 auto',
+  video: {
+    borderRadius: 2,
+  },
+});
+
+const ImageWrapper = styled('div')({
+  width: '100%',
+  maxWidth: 600,
   margin: '0 auto',
   img: {
     borderRadius: 2,
@@ -146,13 +156,12 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
   }
 
   const { project } = mdata;
+  const { title, author, gif, coverImage, body, updatedDate } = project;
   const projectURL = `https://chivongv.vercel.app/works/${slug}`;
 
   return (
     <Layout
-      title={
-        router.isFallback ? 'Loading...' : `${project.title} | Chi Vong's works`
-      }
+      title={router.isFallback ? 'Loading...' : `${title} | Chi Vong's works`}
     >
       <Container>
         {router.isFallback ? (
@@ -161,26 +170,47 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
           <>
             <Head>
               <title>
-                {project.title} | {project.author?.name}
+                {title} | {author?.name}
               </title>
             </Head>
-            <ProjectTitle>{project.title}</ProjectTitle>
-            {project.coverImage && (
+            <ProjectTitle>{title}</ProjectTitle>
+            {gif ? (
+              <VideoWrapper>
+                <video width="100%" autoPlay loop muted>
+                  {gif.webm && (
+                    <source src={`${urlForFile(gif.webm)}`} type="video/webm" />
+                  )}
+                  {gif.mp4 && (
+                    <source src={`${urlForFile(gif.mp4)}`} type="video/mp4" />
+                  )}
+                  {gif.ogg && (
+                    <source src={`${urlForFile(gif.ogg)}`} type="video/ogg" />
+                  )}
+                  Your browser does not support the video tag.
+                </video>
+              </VideoWrapper>
+            ) : coverImage ? (
               <ImageWrapper>
-                <Image src={project.coverImage} width="800" height="600" />
+                <Image
+                  src={coverImage}
+                  alt={title}
+                  layout="intrinsic"
+                  width={600}
+                  height={600}
+                />
               </ImageWrapper>
-            )}
+            ) : null}
             <ProjectBody>
               <ContentWrapper>
-                <PortableText value={project.body} components={ptComponents} />
+                <PortableText value={body} components={ptComponents} />
                 <Link href="/works" passHref>
                   <BackTo>
                     <FaLongArrowAltLeft /> Back to works
                   </BackTo>
                 </Link>
-                {project.updatedDate ? (
+                {updatedDate ? (
                   <Time title="Last updated date">
-                    Last updated date {formatDate(project.updatedDate)}
+                    Last updated date {formatDate(updatedDate)}
                   </Time>
                 ) : null}
               </ContentWrapper>
