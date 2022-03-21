@@ -9,6 +9,7 @@ You can fork this repo and use it. But please give me proper credit by linking b
 First, run the development server:
 
 ```bash
+cd web
 yarn dev
 ```
 
