@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
@@ -11,7 +10,7 @@ import { PortableText } from '@portabletext/react';
 import { Breakpoints } from '@styles/breakpoints';
 import { getClient, sanityClient } from '@lib/sanity.server';
 import { postQuery, projectQuery, projectSlugsQuery } from '@lib/queries';
-import { ptComponents, usePreviewSubscription } from '@lib/sanity';
+import { ptComponents, urlFor, usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
 const NotFound = dynamic(() => import('@pages/404'));
@@ -191,12 +190,10 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
               </VideoWrapper>
             ) : coverImage ? (
               <ImageWrapper>
-                <Image
-                  src={coverImage}
+                <img
+                  loading="lazy"
+                  src={urlFor(coverImage).width(400).url()}
                   alt={title}
-                  layout="intrinsic"
-                  width={600}
-                  height={600}
                 />
               </ImageWrapper>
             ) : null}
