@@ -1,24 +1,24 @@
-export type FrontProjectType = {
-  _id: string;
-  demo: string;
-  excerpt: string;
-  source: string;
-  tags: string[];
+type shared = {
   title: string;
+  tags: string[];
+  demo: string;
+  source: string;
 };
 
-export type ProjectType = {
+export type FrontProjectType = shared & {
+  _id: string;
+  excerpt: string;
+};
+
+export type ProjectType = shared & {
   slug: string;
-  title: string;
   author: {
     name: string;
   };
-  excerpt: string;
   publishedDate: Datetime;
   updatedDate: Datetime;
   coverImage: string;
   body: TypedObject | TypedObject[];
-  tags: string[];
   gif: {
     mp4: File;
     webm: File;

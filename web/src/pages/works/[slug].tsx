@@ -4,7 +4,12 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
-import { FaLongArrowAltLeft } from 'react-icons/fa';
+import {
+  FaExternalLinkAlt,
+  FaGithub,
+  FaGitlab,
+  FaLongArrowAltLeft,
+} from 'react-icons/fa';
 import { PortableText } from '@portabletext/react';
 
 import { Breakpoints } from '@styles/breakpoints';
@@ -126,6 +131,34 @@ const ContentWrapper = styled('div')({
   },
 });
 
+const Center = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+const SourceLinks = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  paddingTop: 15,
+  a: {
+    marginRight: 25,
+    color: 'var(--colors-text)',
+    ':hover, :focus': {
+      color: 'var(--colors-primary)',
+    },
+    svg: {
+      marginRight: 3,
+    },
+  },
+  'a:last-child': {
+    marginRight: 0,
+  },
+  [Breakpoints.LargerThan800]: {
+    justifyContent: 'flex-start',
+  },
+});
+
 const ProjectLinks = styled('div')({
   textAlign: 'right',
 });
@@ -133,6 +166,14 @@ const ProjectLinks = styled('div')({
 const ProjectLink = styled('a')({
   color: 'var(--colors-primary)',
 });
+
+const IconSelector = (link = 'github') => {
+  if (link.includes('github')) {
+    return <FaGithub />;
+  } else {
+    return <FaGitlab />;
+  }
+};
 
 type Props = {
   data: {
@@ -155,7 +196,8 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
   }
 
   const { project } = mdata;
-  const { title, author, gif, coverImage, body, updatedDate } = project;
+  const { title, author, gif, coverImage, body, updatedDate, source, demo } =
+    project;
   const projectURL = `https://chivongv.vercel.app/works/${slug}`;
 
   return (
@@ -196,6 +238,30 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
                   alt={title}
                 />
               </ImageWrapper>
+            ) : null}
+            {source || demo ? (
+              <Center>
+                <SourceLinks>
+                  {demo ? (
+                    <a
+                      href={demo}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <FaExternalLinkAlt /> Demo
+                    </a>
+                  ) : null}
+                  {source ? (
+                    <a
+                      href={source}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      {IconSelector(source)} Source
+                    </a>
+                  ) : null}
+                </SourceLinks>
+              </Center>
             ) : null}
             <ProjectBody>
               <ContentWrapper>
