@@ -6,9 +6,7 @@ import styled from '@emotion/styled/macro';
 import { Breakpoints } from '@styles/breakpoints';
 const SocialBar = dynamic(() => import('./SocialBar'));
 const ToggleMode = dynamic(() => import('./ToggleMode'));
-const Bars = dynamic(() => import('@icons/Bars'));
 const Cube = dynamic(() => import('@icons/Cube'));
-const X = dynamic(() => import('@icons/X'));
 
 const Container = styled('header')({
   display: 'flex',
@@ -25,27 +23,56 @@ const Container = styled('header')({
   zIndex: 999,
 });
 
-const InnerContainer = styled('div')({
+const Inner = styled('div')({
   width: '100%',
   maxWidth: 1000,
   padding: '12px 0 10px',
   margin: '0 auto',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
 });
 
-const MenuToggle = styled.button({
+const MenuToggle = styled.button<{ showMenu: boolean }>(({ showMenu }) => ({
+  display: 'flex',
+  justifyContent: 'space-around',
+  flexDirection: 'column',
   border: 'none',
   background: 'transparent',
   outline: 'none',
   cursor: 'pointer',
-  color: 'var(--colors-text)',
+  width: 24,
+  height: 24,
+  position: 'relative',
+  zIndex: 1001,
+  '> span': {
+    background: 'var(--colors-text)',
+    height: 3,
+    width: '100%',
+    transformOrigin: 1,
+    transition: 'all 0.5s ease',
+    borderRadius: 10,
+  },
+  '> span:nth-of-type(1)': {
+    transform: showMenu ? 'rotate(45deg)' : 'rotate(0)',
+  },
+  '> span:nth-of-type(2)': {
+    opacity: showMenu ? 0 : 1,
+    transition: 'opacity 0.2s ease',
+  },
+  '> span:nth-of-type(3)': {
+    transform: showMenu ? 'rotate(-45deg)' : 'rotate(0)',
+  },
   [Breakpoints.Small]: {
     display: 'none',
   },
-});
+  '&:hover > span': {
+    backgroundColor: 'var(--colors-tag)',
+    transition: 'all 0.2s liear',
+  },
+}));
 
-const Nav = styled('nav')<{ isOpen: boolean }>(({ isOpen }) => ({
+const NavList = styled('nav')<{ showMenu: boolean }>(({ showMenu }) => ({
   display: 'flex',
   [Breakpoints.Mobile]: {
     position: 'absolute',
@@ -60,7 +87,7 @@ const Nav = styled('nav')<{ isOpen: boolean }>(({ isOpen }) => ({
       padding: 5,
       margin: 5,
     },
-    transform: isOpen ? 'translateX(100vw)' : 'translateX(0)',
+    transform: showMenu ? 'translateX(100vw)' : 'translateX(0)',
     transition: 'transform 500ms ease-in-out',
     zIndex: 1000,
   },
@@ -76,18 +103,6 @@ const Nav = styled('nav')<{ isOpen: boolean }>(({ isOpen }) => ({
   },
 }));
 
-const MenuExit = styled.button({
-  border: 'none',
-  background: 'transparent',
-  outline: 'none',
-  color: 'var(--colors-text)',
-  cursor: 'pointer',
-  padding: 10,
-  position: 'absolute',
-  top: 5,
-  right: 10,
-});
-
 const Anchor = styled('a')<{ isActive: boolean }>(({ isActive }) => ({
   cursor: 'pointer',
   color: isActive ? 'var(--colors-primary)' : 'var(--colors-text)',
@@ -101,17 +116,17 @@ const Anchor = styled('a')<{ isActive: boolean }>(({ isActive }) => ({
 
 const Navbar = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [showMenu, setShowMenu] = React.useState(false);
 
   return (
     <Container>
-      <InnerContainer>
+      <Inner>
         <Link href="/">
           <a>
             <Cube width="24" height="24" />
           </a>
         </Link>
-        <Nav isOpen={isOpen}>
+        <NavList showMenu={showMenu}>
           <Link href="/" passHref>
             <Anchor isActive={router.pathname === '/'}>Home</Anchor>
           </Link>
@@ -124,22 +139,18 @@ const Navbar = () => {
           <div>
             <ToggleMode />
           </div>
-          {isOpen && (
-            <>
-              <SocialBar />
-              <MenuExit
-                type="button"
-                onClick={() => setIsOpen((prev) => !prev)}
-              >
-                <X width="24" height="24" />
-              </MenuExit>
-            </>
-          )}
-        </Nav>
-        <MenuToggle type="button" onClick={() => setIsOpen((prev) => !prev)}>
-          <Bars width="24" height="24" />
+          {showMenu && <SocialBar />}
+        </NavList>
+        <MenuToggle
+          type="button"
+          onClick={() => setShowMenu((prev) => !prev)}
+          showMenu={showMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </MenuToggle>
-      </InnerContainer>
+      </Inner>
     </Container>
   );
 };
