@@ -15,6 +15,9 @@ const Container = styled(motion.div)({
   [Breakpoints.LargerThan1000]: {
     minHeight: '100vh',
   },
+  '@media (orientation: landscape)': {
+    paddingTop: 100,
+  },
 });
 
 const Title = styled(motion.h2)({
