@@ -8,7 +8,8 @@
   --colors-tag: rgba(0, 0, 0, 0.6);
   --colors-shadow: rgba(0, 0, 0, 0.1);
   --colors-thumbnail-background: #f2f2f2;
-  --colors-role: linear-gradient(to bottom, #9795ef 0%, #f9c5d1 100%);
+  --colors-role: linear-gradient(to bottom, #81fbb8 0%, #465efb 100%);
+  --colors-highlight: #1fb742;
 }
 
 [data-theme='dark'] {
@@ -20,6 +21,7 @@
   --colors-shadow: rgba(0, 0, 0, 0.7);
   --colors-thumbnail-background: #f2f2f205;
   --colors-role: linear-gradient(to bottom, #859ef5 0%, #ffbdd8 100%);
+  --colors-highlight: #1fb742;
 }
 
 * {
