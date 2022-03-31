@@ -16,7 +16,7 @@ import { usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
 const NotFound = dynamic(() => import('@pages/404'));
-const ToTop = dynamic(() => import('@components/ToTop'));
+const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 import { formatDate } from '@utils/datetime-utils';
 import { BackTo, Time } from '@components/sharedPosts';
@@ -209,7 +209,7 @@ const Note: FC<Props> = ({ data, preview }) => {
           </>
         )}
         <SocialBar />
-        <ToTop />
+        <ToTopButton />
       </Container>
     </Layout>
   );

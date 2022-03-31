@@ -86,7 +86,7 @@ const Text = styled('span')({
 
 const Highlight = styled('span')({
   fontWeight: 700,
-  color: '#1fb742',
+  color: 'var(--colors-highlight)',
 });
 
 type Props = {

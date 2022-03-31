@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import styled from '@emotion/styled/macro';
 import { Breakpoints } from '@styles/breakpoints';
 const SocialBar = dynamic(() => import('./SocialBar'));
-const ToggleMode = dynamic(() => import('./ToggleMode'));
+const ToggleModeButton = dynamic(() => import('./buttons/ToggleModeButton'));
 const Cube = dynamic(() => import('@icons/Cube'));
 
 const Container = styled('header')({
@@ -137,7 +137,7 @@ const Navbar = () => {
             <Anchor isActive={router.pathname.includes('/blog')}>Blog</Anchor>
           </Link>
           <div>
-            <ToggleMode />
+            <ToggleModeButton />
           </div>
           {showMenu && <SocialBar />}
         </NavList>

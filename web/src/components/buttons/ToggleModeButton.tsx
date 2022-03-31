@@ -53,7 +53,7 @@ const getModeIcon = (mode: string) => {
   }
 };
 
-const ToggleMode: React.FC = () => {
+const ToggleModeButton: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const displayText =
@@ -76,4 +76,4 @@ const ToggleMode: React.FC = () => {
   );
 };
 
-export default ToggleMode;
+export default ToggleModeButton;
