@@ -30,16 +30,6 @@ const Title = styled('h2')({
   overflowWrap: 'break-word',
 });
 
-const SubTitle = styled('h3')({
-  fontSize: '0.875rem',
-  textAlign: 'center',
-  color: 'var(--colors-text)',
-  overflowWrap: 'break-word',
-  maxWidth: 900,
-  padding: '10px 15px',
-  margin: '15px auto',
-});
-
 const NoteList = styled(motion.ul)({
   display: 'flex',
   flexWrap: 'wrap',
@@ -78,12 +68,7 @@ const Notes = ({ allNotes, preview }) => {
   return (
     <Layout title="Chi Vong | Notes">
       <Container>
-        <Title>Notes</Title>
-        <SubTitle>
-          These are my notes on my journey to become a Software Engineer. They
-          are written for myself and they contain my opinions and principles. I
-          am sharing these publicly because I believe in learning in public.
-        </SubTitle>
+        <Title>Code Notes</Title>
         {preview && <AlertPreview redirect="notes" />}
         <NoteList>
           {allNotes.map((note: NotePost, index) => {

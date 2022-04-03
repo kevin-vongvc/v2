@@ -10,9 +10,9 @@ import { PortableText } from '@portabletext/react';
 
 import { NotePost } from 'types/notepost';
 import { Breakpoints } from '@styles/breakpoints';
-import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
+import { getClient, sanityClient } from '@lib/sanity.server';
 import { noteQuery, noteSlugsQuery } from '@lib/queries';
-import { usePreviewSubscription } from '@lib/sanity';
+import { ptComponents, usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const Layout = dynamic(() => import('@components/Layout'));
 const NotFound = dynamic(() => import('@pages/404'));
@@ -117,14 +117,6 @@ const ContentWrapper = styled('div')({
   },
 });
 
-const NoteLinks = styled('div')({
-  textAlign: 'right',
-});
-
-const NoteLink = styled('a')({
-  color: 'var(--colors-primary)',
-});
-
 type Props = {
   data: {
     note: NotePost;
@@ -152,7 +144,9 @@ const Note: FC<Props> = ({ data, preview }) => {
   return (
     <Layout
       title={
-        router.isFallback ? 'Loading...' : `${note.title} | Chi Vong's Notes`
+        router.isFallback
+          ? 'Loading...'
+          : `${note.title} | Chi Vong's Code Notes`
       }
     >
       <Container>
@@ -173,7 +167,7 @@ const Note: FC<Props> = ({ data, preview }) => {
             )}
             <NoteBody>
               <ContentWrapper>
-                <PortableText value={note.body} />
+                <PortableText value={note.body} components={ptComponents} />
                 <Link href="/notes" passHref>
                   <BackTo>
                     <FaLongArrowAltLeft /> Back to notes
@@ -184,27 +178,6 @@ const Note: FC<Props> = ({ data, preview }) => {
                 </Time>
               </ContentWrapper>
               {preview && <AlertPreview redirect="notes" />}
-              <NoteLinks>
-                <NoteLink
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://twitter.com/search?q=${encodeURIComponent(
-                    noteURL,
-                  )}`}
-                >
-                  Discuss on Twitter
-                </NoteLink>
-                {` • `}
-                <NoteLink
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://twitter.com/intent/tweet/?text=Great post by @chivongv ${encodeURIComponent(
-                    noteURL,
-                  )}`}
-                >
-                  Tweet about this note
-                </NoteLink>
-              </NoteLinks>
             </NoteBody>
           </>
         )}
