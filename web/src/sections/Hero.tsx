@@ -86,13 +86,17 @@ const Hero = () => {
   }, []);
 
   return (
-    <Container initial="hidden" animate="visible">
+    <Container id="home" initial="hidden" animate="visible">
       <Title>
         Hi, I'm <span className="highlight">Chi</span> and I'm
       </Title>
       <SubTitle>{roles[0]}</SubTitle>
       <Link href="/#works" passHref>
-        <Anchor variants={moveUp} transition={{ delay: 0.5, duration: 2 }}>
+        <Anchor
+          aria-label="Navigate to works"
+          variants={moveUp}
+          transition={{ delay: 0.5, duration: 2 }}
+        >
           Read more
         </Anchor>
       </Link>
