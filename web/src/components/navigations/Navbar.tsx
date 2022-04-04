@@ -4,8 +4,11 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled/macro';
 import { Breakpoints } from '@styles/breakpoints';
-const SocialBar = dynamic(() => import('./SocialBar'));
-const ToggleModeButton = dynamic(() => import('./buttons/ToggleModeButton'));
+import { NAVBAR_HEIGHT } from '@utils/constants';
+const SocialBar = dynamic(() => import('@components/SocialBar'));
+const ToggleModeButton = dynamic(
+  () => import('@components/buttons/ToggleModeButton'),
+);
 const Cube = dynamic(() => import('@icons/Cube'));
 
 const Container = styled('header')({
@@ -16,7 +19,7 @@ const Container = styled('header')({
   margin: '0 auto',
   paddingLeft: 20,
   paddingRight: 20,
-  height: 50,
+  height: NAVBAR_HEIGHT,
   position: 'fixed',
   backgroundColor: 'var(--colors-nav-background)',
   boxShadow: `3px 3px 5px var(--colors-shadow)`,
@@ -128,16 +131,36 @@ const Navbar = () => {
         </Link>
         <NavList showMenu={showMenu}>
           <Link href="/" passHref>
-            <Anchor isActive={router.pathname === '/'}>Home</Anchor>
+            <Anchor
+              aria-label="Navigate to home page"
+              isActive={router.pathname === '/'}
+            >
+              Home
+            </Anchor>
           </Link>
           <Link href="/works" passHref>
-            <Anchor isActive={router.pathname.includes('/works')}>Works</Anchor>
+            <Anchor
+              aria-label="Navigate to works page"
+              isActive={router.pathname.includes('/works')}
+            >
+              Works
+            </Anchor>
           </Link>
           <Link href="/notes" passHref>
-            <Anchor isActive={router.pathname.includes('/notes')}>Notes</Anchor>
+            <Anchor
+              aria-label="Navigate to notes page"
+              isActive={router.pathname.includes('/notes')}
+            >
+              Notes
+            </Anchor>
           </Link>
           <Link href="/blog" passHref>
-            <Anchor isActive={router.pathname.includes('/blog')}>Blog</Anchor>
+            <Anchor
+              aria-label="Navigate to blog page"
+              isActive={router.pathname.includes('/blog')}
+            >
+              Blog
+            </Anchor>
           </Link>
           <div>
             <ToggleModeButton />
@@ -146,6 +169,7 @@ const Navbar = () => {
         </NavList>
         <MenuToggle
           type="button"
+          aria-label="Click to toggle navigation menu"
           onClick={() => setShowMenu((prev) => !prev)}
           showMenu={showMenu}
         >

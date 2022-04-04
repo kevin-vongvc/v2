@@ -3,7 +3,7 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled/macro';
 
-const Navbar = dynamic(() => import('@components/Navbar'));
+const Navbar = dynamic(() => import('@components/navigations/Navbar'));
 const Footer = dynamic(() => import('@components/Footer'));
 
 const Container = styled('div')({
