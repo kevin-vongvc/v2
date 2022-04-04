@@ -174,7 +174,7 @@ const Note: FC<Props> = ({ data, preview }) => {
                   </BackTo>
                 </Link>
                 <Time title="Last updated date">
-                  {formatDate(note.updatedDate)}
+                Last updated date {formatDate(note.updatedDate)}
                 </Time>
               </ContentWrapper>
               {preview && <AlertPreview redirect="notes" />}
