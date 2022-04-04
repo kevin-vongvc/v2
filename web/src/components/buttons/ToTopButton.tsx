@@ -28,10 +28,9 @@ const Button = styled('button')({
   },
 });
 
-const ToTop = (props) => {
+const ToTop = ({ showAtPosition = 150 }) => {
   const shouldReduceMotion = useReducedMotion();
   const [visible, setVisible] = React.useState(false);
-  const { showAtPosition } = props;
 
   function scrollListener() {
     if (window.scrollY > showAtPosition) {
@@ -69,10 +68,6 @@ const ToTop = (props) => {
       <FaArrowUp />
     </Button>
   );
-};
-
-ToTop.defaultProps = {
-  showAtPosition: 150,
 };
 
 export default ToTop;

@@ -15,13 +15,14 @@ const BlogPostCard = dynamic(() => import('@components/cards/BlogPostCard'));
 const SearchInput = dynamic(() => import('@components/SearchInput'));
 import generateRss from '@lib/rss';
 import { BlogPostType } from 'types/blogpost';
+import { NAVBAR_HEIGHT } from '@utils/constants';
 
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '85vh',
-  paddingTop: 70,
+  paddingTop: NAVBAR_HEIGHT + 10,
   [Breakpoints.LargerThan1000]: {
     minHeight: '100vh',
   },
@@ -32,6 +33,7 @@ const Title = styled('h2')({
   textAlign: 'center',
   color: 'var(--colors-primary)',
   overflowWrap: 'break-word',
+  paddingTop: 10,
 });
 
 const PostList = styled(motion.ul)({

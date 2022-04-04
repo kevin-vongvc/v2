@@ -65,7 +65,12 @@ const SearchInput = ({ handleClick, ...rest }) => {
         onChange={(e) => setText(e.target.value)}
         {...rest}
       />
-      <Button onClick={() => handleClick(text)}>Search</Button>
+      <Button
+        aria-label="Click here to search"
+        onClick={() => handleClick(text)}
+      >
+        Search
+      </Button>
     </Container>
   );
 };

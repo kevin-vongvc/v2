@@ -7,6 +7,8 @@ import { worksIndexQuery } from '@lib/queries';
 import { getClient, overlayDrafts } from '@lib/sanity.server';
 import { Breakpoints } from '@styles/breakpoints';
 import Layout from '@components/Layout';
+import { NAVBAR_HEIGHT } from '@utils/constants';
+const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const ProjectCard = dynamic(() => import('@components/cards/ProjectCard'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
@@ -17,7 +19,7 @@ const Container = styled('div')({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  paddingTop: 50,
+  paddingTop: NAVBAR_HEIGHT + 10,
   [Breakpoints.LargerThan1000]: {
     minHeight: '100vh',
   },
@@ -70,6 +72,7 @@ const Works = ({ allWorks, preview }) => {
         </ProjectList>
       </Container>
       <SocialBar />
+      <ToTopButton />
     </Layout>
   );
 };

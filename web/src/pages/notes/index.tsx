@@ -11,13 +11,14 @@ const SocialBar = dynamic(() => import('@components/SocialBar'));
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const NotePostCard = dynamic(() => import('@components/cards/NotePostCard'));
 import { NotePost } from 'types/notepost';
+import { NAVBAR_HEIGHT } from '@utils/constants';
 
 const Container = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '85vh',
-  paddingTop: 70,
+  paddingTop: NAVBAR_HEIGHT + 10,
   [Breakpoints.LargerThan1000]: {
     minHeight: '100vh',
   },
@@ -28,6 +29,7 @@ const Title = styled('h2')({
   textAlign: 'center',
   color: 'var(--colors-primary)',
   overflowWrap: 'break-word',
+  paddingTop: 10,
 });
 
 const NoteList = styled(motion.ul)({
