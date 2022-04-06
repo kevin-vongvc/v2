@@ -71,7 +71,7 @@ const MenuToggle = styled.button<{ showMenu: boolean }>(({ showMenu }) => ({
   },
   '&:hover > span': {
     backgroundColor: 'var(--colors-tag)',
-    transition: 'all 0.2s liear',
+    transition: 'all 0.2s linear',
   },
 }));
 
