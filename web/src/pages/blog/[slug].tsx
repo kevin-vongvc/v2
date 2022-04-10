@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
@@ -10,7 +9,7 @@ import { PortableText } from '@portabletext/react';
 
 import { BlogPostType } from 'types/blogpost';
 import { Breakpoints } from '@styles/breakpoints';
-import { getClient, overlayDrafts, sanityClient } from '@lib/sanity.server';
+import { getClient, sanityClient } from '@lib/sanity.server';
 import { postQuery, postSlugsQuery } from '@lib/queries';
 import { ptComponents, usePreviewSubscription } from '@lib/sanity';
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
@@ -20,6 +19,7 @@ const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 import { formatDate } from '@utils/datetime-utils';
 import { BackTo, Time } from '@components/sharedPosts';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 
 const Container = styled('article')({
   display: 'flex',
@@ -149,21 +149,17 @@ const BlogPost: React.FC<Props> = ({ data, preview }) => {
   const postURL = `https://chivongv.vercel.app/blog/${slug}`;
 
   return (
-    <Layout
-      title={
-        router.isFallback ? 'Loading...' : `${post.title} | Chi Vong's blog`
-      }
-    >
+    <Layout>
+      <DefaultSeo
+        title={
+          router.isFallback ? 'Loading...' : `${post.title} | Chi Vong's blog`
+        }
+      />
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <Head>
-              <title>
-                {post.title} | {post.author?.name}
-              </title>
-            </Head>
             <PostTitle>{post.title}</PostTitle>
             {post.coverImage && (
               <ImageWrapper>

@@ -17,7 +17,7 @@ type Props = {
 
 const Home = ({ projects }: Props) => {
   return (
-    <Layout title="Chi Vong | Software Engineer">
+    <Layout>
       <SectionNav sections={homeSections} />
       <Hero />
       <FrontProjects projects={projects} />

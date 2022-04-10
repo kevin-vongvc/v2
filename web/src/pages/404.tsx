@@ -1,6 +1,8 @@
 import styled from '@emotion/styled/macro';
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import Layout from '@components/Layout';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
+import siteConfig from '../siteSettings';
 
 const Container = styled('div')({
   display: 'flex',
@@ -21,7 +23,8 @@ const ButtonLink = styled('a')({
 
 export default function NotFound() {
   return (
-    <Layout title="404">
+    <Layout>
+      <DefaultSeo title={`Page not found - ${siteConfig.title}`} />
       <Container>
         <h1>404 - Page Not Found</h1>
         <Link href="/">

@@ -12,6 +12,7 @@ const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 const NotePostCard = dynamic(() => import('@components/cards/NotePostCard'));
 import { NotePost } from 'types/notepost';
 import { NAVBAR_HEIGHT } from '@utils/constants';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 
 const Container = styled('div')({
   display: 'flex',
@@ -68,7 +69,8 @@ const moveUp = {
 
 const Notes = ({ allNotes, preview }) => {
   return (
-    <Layout title="Chi Vong | Notes">
+    <Layout>
+      <DefaultSeo title="Chi Vong | Notes" />
       <Container>
         <Title>Code Notes</Title>
         {preview && <AlertPreview redirect="notes" />}

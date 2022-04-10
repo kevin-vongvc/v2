@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import {
@@ -25,6 +24,7 @@ import { formatDate } from '@utils/datetime-utils';
 import { urlForFile } from '@utils/urlForFile';
 import { BackTo, Time } from '@components/sharedPosts';
 import { ProjectType } from 'types/project';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 
 const Container = styled('article')({
   display: 'flex',
@@ -201,19 +201,15 @@ const ProjectPost: React.FC<Props> = ({ data, preview }) => {
   const projectURL = `https://chivongv.vercel.app/works/${slug}`;
 
   return (
-    <Layout
-      title={router.isFallback ? 'Loading...' : `${title} | Chi Vong's works`}
-    >
+    <Layout>
+      <DefaultSeo
+        title={router.isFallback ? 'Loading...' : `${title} | Chi Vong's works`}
+      />
       <Container>
         {router.isFallback ? (
           <ProjectTitle>Loading…</ProjectTitle>
         ) : (
           <>
-            <Head>
-              <title>
-                {title} | {author?.name}
-              </title>
-            </Head>
             <ProjectTitle>{title}</ProjectTitle>
             {gif ? (
               <VideoWrapper>

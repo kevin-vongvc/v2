@@ -23,7 +23,8 @@
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
       "@pages/*": ["pages/*"],
-      "@icons/*": ["icons/*"]
+      "@icons/*": ["icons/*"],
+      "@src/*": ["./*"]
     },
     "typeRoots": ["./src/types"],
     "incremental": true

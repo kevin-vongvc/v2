@@ -1,5 +1,25 @@
 module.exports = {
-  siteTitle: 'chivongv',
+  pathPrefix: '/',
+  keywords: [
+    'Software Engineer',
+    'React',
+    'NextJS',
+    'TypeScript',
+    'Jest',
+    'Docker',
+    'Frontend',
+    'Engineering',
+    'Blog',
+  ],
+  title: 'Chi Vong | Portfolio',
+  titleAlt: "Chi Vong's Portfolio",
+  description:
+    "Hi! I'm Chi Vong, and this is my portfolio. Here, I share through my demos and writing my experience as a software engineer and everything I'm learning on software development.",
+  url: 'https://chivongv.vercel.app', // Site domain without trailing slash
+  siteUrl: 'https://chivongv.vercel.app/', // url + pathPrefix
+  siteLanguage: 'en',
+  favicon: 'static/favicon.ico',
+  shortName: 'ChiVong',
   author: 'Chi Vong',
   email: 'chivongv@pm.me',
   socialMedia: [

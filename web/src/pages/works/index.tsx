@@ -8,6 +8,7 @@ import { getClient, overlayDrafts } from '@lib/sanity.server';
 import { Breakpoints } from '@styles/breakpoints';
 import Layout from '@components/Layout';
 import { NAVBAR_HEIGHT } from '@utils/constants';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const ProjectCard = dynamic(() => import('@components/cards/ProjectCard'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
@@ -50,7 +51,8 @@ const Works = ({ allWorks, preview }) => {
   }, [controls]);
 
   return (
-    <Layout title="Chi Vong | Works">
+    <Layout>
+      <DefaultSeo title="Chi Vong | Works" />
       <Container>
         {preview && <AlertPreview redirect="works" />}
         <ProjectList>

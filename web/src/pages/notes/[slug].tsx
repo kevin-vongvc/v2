@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled/macro';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
@@ -20,6 +19,7 @@ const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 import { formatDate } from '@utils/datetime-utils';
 import { BackTo, Time } from '@components/sharedPosts';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 
 const Container = styled('article')({
   display: 'flex',
@@ -142,23 +142,19 @@ const Note: FC<Props> = ({ data, preview }) => {
   const noteURL = `https://chivongv.vercel.app/notes/${slug}`;
 
   return (
-    <Layout
-      title={
-        router.isFallback
-          ? 'Loading...'
-          : `${note.title} | Chi Vong's Code Notes`
-      }
-    >
+    <Layout>
+      <DefaultSeo
+        title={
+          router.isFallback
+            ? 'Loading...'
+            : `${note.title} | Chi Vong's Code Notes`
+        }
+      />
       <Container>
         {router.isFallback ? (
           <NoteTitle>Loading…</NoteTitle>
         ) : (
           <>
-            <Head>
-              <title>
-                {note.title} | {note.author?.name}
-              </title>
-            </Head>
             <NoteTitle>{note.title}</NoteTitle>
             {note.coverImage && (
               <ImageWrapper>
@@ -174,7 +170,7 @@ const Note: FC<Props> = ({ data, preview }) => {
                   </BackTo>
                 </Link>
                 <Time title="Last updated date">
-                Last updated date {formatDate(note.updatedDate)}
+                  Last updated date {formatDate(note.updatedDate)}
                 </Time>
               </ContentWrapper>
               {preview && <AlertPreview redirect="notes" />}

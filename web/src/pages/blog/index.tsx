@@ -16,6 +16,7 @@ const SearchInput = dynamic(() => import('@components/SearchInput'));
 import generateRss from '@lib/rss';
 import { BlogPostType } from 'types/blogpost';
 import { NAVBAR_HEIGHT } from '@utils/constants';
+import { DefaultSeo } from '@components/seo/DefaultSeo';
 
 const Container = styled('div')({
   display: 'flex',
@@ -83,7 +84,8 @@ const Blog = ({ allPosts, preview }) => {
   const filteredPosts = searcher.search(searchText);
 
   return (
-    <Layout title="Chi Vong | Blog">
+    <Layout>
+      <DefaultSeo title="Chi Vong | Blog" />
       <Container>
         <Title>Blog</Title>
         <SearchInput
