@@ -115,7 +115,7 @@ const Hero = () => {
         <span className="highlight">Chi Vong</span> - Fullstack Engineer
       </Title>
       <SubTitle>I'm <RoleHighlight>{roles[0]}</RoleHighlight></SubTitle>
-      <Text>Currently, focused on building great web experiences</Text>
+      <Text>Currently, focused on building great web experiences. Available for work</Text>
       <Link href="/#works" passHref>
         <Anchor
           aria-label="Navigate to works"
