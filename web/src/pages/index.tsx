@@ -7,9 +7,10 @@ import { FrontProjectType } from 'types/project';
 import SectionNav from '@components/navigations/SectionNav';
 const Hero = dynamic(() => import('@sections/Hero'));
 const FrontProjects = dynamic(() => import('@sections/FrontProjects'));
+const Contact = dynamic(() => import('@sections/Contact'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 
-const homeSections = ['home', 'works'];
+const homeSections = ['home', 'works', 'contact'];
 
 type Props = {
   projects: FrontProjectType[];
@@ -21,6 +22,7 @@ const Home = ({ projects }: Props) => {
       <SectionNav sections={homeSections} />
       <Hero />
       <FrontProjects projects={projects} />
+      <Contact />
       <SocialBar />
     </Layout>
   );
