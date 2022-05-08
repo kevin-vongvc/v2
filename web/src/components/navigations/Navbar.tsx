@@ -52,26 +52,34 @@ const MenuToggle = styled.button<{ showMenu: boolean }>(({ showMenu }) => ({
     background: 'var(--colors-text)',
     height: 3,
     width: '100%',
-    transformOrigin: 1,
+    transformOrigin: 'center',
     transition: 'all 0.5s ease',
     borderRadius: 10,
   },
   '> span:nth-of-type(1)': {
-    transform: showMenu ? 'rotate(45deg)' : 'rotate(0)',
+    transform: showMenu ? 'translateY(8px) rotate(-45deg)' : 'translateY(0px) rotate(0)',
   },
   '> span:nth-of-type(2)': {
     opacity: showMenu ? 0 : 1,
     transition: 'opacity 0.2s ease',
   },
   '> span:nth-of-type(3)': {
-    transform: showMenu ? 'rotate(-45deg)' : 'rotate(0)',
+    transform: showMenu ? 'translateY(-8px) rotate(45deg)' : 'translateY(0px) rotate(0)',
   },
   [Breakpoints.Small]: {
     display: 'none',
   },
   '&:hover > span': {
-    backgroundColor: 'var(--colors-tag)',
     transition: 'all 0.2s linear',
+  },
+  '&:hover > span:nth-of-type(1)': {
+    transform: showMenu ? 'scale(1.05) translateY(8px) rotate(-45deg)' : 'scale(0.95) translateY(0px) rotate(0)',
+  },
+  '&:hover > span:nth-of-type(2)': {
+    transform: 'scale(1.25)',
+  },
+  '&:hover > span:nth-of-type(3)': {
+    transform: showMenu ? 'scale(1.05) translateY(-8px) rotate(45deg)' : 'scale(0.85) translateY(0px) rotate(0)',
   },
 }));
 
