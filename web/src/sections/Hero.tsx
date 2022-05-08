@@ -10,7 +10,6 @@ const Container = styled(motion.div)({
   display: 'flex',
   minHeight: '85vh',
   flexDirection: 'column',
-  alignItems: 'center',
   justifyContent: 'center',
   [Breakpoints.LargerThan1000]: {
     minHeight: '100vh',
@@ -20,38 +19,63 @@ const Container = styled(motion.div)({
   },
 });
 
-const Title = styled(motion.h2)({
-  fontSize: 'calc(1rem + 2.5vw)',
+const Title = styled(motion.h1)({
+  padding: '0 20px',
+  fontSize: 'calc(1rem + 1.5vw)',
   lineHeight: 1.5,
   marginBottom: 10,
+  [Breakpoints.LargerThan1000]: {
+    padding: 0,
+    fontSize: 'calc(1rem + 2.5vw)',
+  },
 });
 
-const SubTitle = styled(motion.h3)({
-  fontSize: 'calc(1rem + 1.5vw)',
+const SubTitle = styled(motion.h2)({
+  padding: '0 20px',
+  fontSize: 'calc(1rem + 1.75vw)',
   maxWidth: 800,
   width: '85vw',
   lineHeight: 1.3,
-  textAlign: 'center',
   marginBottom: 25,
+  [Breakpoints.LargerThan1000]: {
+    padding: 0,
+  },
+});
+
+const RoleHighlight = styled('span')({
   color: 'transparent',
   backgroundColor: 'var(--colors-background)',
   backgroundImage: 'var(--colors-role)',
   backgroundClip: 'text',
 });
 
+const Text = styled('p')({
+  fontSize: 'calc(0.9rem + 0.7vw)',
+  margin: '0 20px',
+  [Breakpoints.LargerThan1000]: {
+    margin: 0,
+  },
+});
+
 const Anchor = styled(motion.a)({
+  marginLeft: 20,
   marginTop: 15,
   backgroundColor: 'var(--colors-primary)',
   color: '#fff',
   position: 'relative',
   padding: '10px 15px',
   borderRadius: 4,
+  alignSelf: 'center',
   '::selection': {
     backgroundColor: 'initial',
     color: 'initial',
   },
+  width: 120,
   '@media screen and (min-width: 594px)': {
     marginTop: 100,
+  },
+  [Breakpoints.LargerThan1000]: {
+    marginLeft: 0,
   },
 });
 
@@ -88,9 +112,10 @@ const Hero = () => {
   return (
     <Container id="home" initial="hidden" animate="visible">
       <Title>
-        Hi, I'm <span className="highlight">Chi</span> and I'm
+        <span className="highlight">Chi Vong</span> - Fullstack Engineer
       </Title>
-      <SubTitle>{roles[0]}</SubTitle>
+      <SubTitle>I'm <RoleHighlight>{roles[0]}</RoleHighlight></SubTitle>
+      <Text>Currently, focused on building great web experiences</Text>
       <Link href="/#works" passHref>
         <Anchor
           aria-label="Navigate to works"
