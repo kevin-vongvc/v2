@@ -70,7 +70,6 @@ const Anchor = styled(motion.a)({
     backgroundColor: 'initial',
     color: 'initial',
   },
-  width: 120,
   '@media screen and (min-width: 594px)': {
     marginTop: 100,
   },
