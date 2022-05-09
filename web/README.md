@@ -1,4 +1,4 @@
-This is a portfolio project built with [Next.js](https://nextjs.org/).
+This is a portfolio project built with [Next.js](https://nextjs.org/) and Sanity.io.
 
 ## Getting Started
 
@@ -9,3 +9,8 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Build for production
+```bash
+yarn build && yarn start
+```

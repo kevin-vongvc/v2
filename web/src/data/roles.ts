@@ -1,6 +1,8 @@
 export const allRoles = [
   'a Software Engineer',
-  'a teamplayer',
+  'a team player',
+  'a contributor',
+  'a tester',
   'a supporter',
   'a movie lover',
   'a human',
@@ -9,7 +11,7 @@ export const allRoles = [
   'a nature-lover',
   'a gamer',
   'a curious learner',
-  'a reviewer',
+  'a code reviewer',
   'a teacher',
   'a traveler',
   'an adventurer',
