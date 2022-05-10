@@ -9,7 +9,7 @@ const SocialBar = dynamic(() => import('@components/SocialBar'));
 const ToggleModeButton = dynamic(
   () => import('@components/buttons/ToggleModeButton'),
 );
-const Cube = dynamic(() => import('@icons/Cube'));
+const ZapIcon = dynamic(() => import('@icons/Zap'));
 
 const Container = styled('header')({
   display: 'flex',
@@ -57,14 +57,18 @@ const MenuToggle = styled.button<{ showMenu: boolean }>(({ showMenu }) => ({
     borderRadius: 10,
   },
   '> span:nth-of-type(1)': {
-    transform: showMenu ? 'translateY(8px) rotate(-45deg)' : 'translateY(0px) rotate(0)',
+    transform: showMenu
+      ? 'translateY(8px) rotate(-45deg)'
+      : 'translateY(0px) rotate(0)',
   },
   '> span:nth-of-type(2)': {
     opacity: showMenu ? 0 : 1,
     transition: 'opacity 0.2s ease',
   },
   '> span:nth-of-type(3)': {
-    transform: showMenu ? 'translateY(-8px) rotate(45deg)' : 'translateY(0px) rotate(0)',
+    transform: showMenu
+      ? 'translateY(-8px) rotate(45deg)'
+      : 'translateY(0px) rotate(0)',
   },
   [Breakpoints.Small]: {
     display: 'none',
@@ -73,13 +77,17 @@ const MenuToggle = styled.button<{ showMenu: boolean }>(({ showMenu }) => ({
     transition: 'all 0.2s linear',
   },
   '&:hover > span:nth-of-type(1)': {
-    transform: showMenu ? 'scale(1.05) translateY(8px) rotate(-45deg)' : 'scale(0.95) translateY(0px) rotate(0)',
+    transform: showMenu
+      ? 'scale(1.05) translateY(8px) rotate(-45deg)'
+      : 'scale(0.95) translateY(0px) rotate(0)',
   },
   '&:hover > span:nth-of-type(2)': {
     transform: 'scale(1.25)',
   },
   '&:hover > span:nth-of-type(3)': {
-    transform: showMenu ? 'scale(1.05) translateY(-8px) rotate(45deg)' : 'scale(0.85) translateY(0px) rotate(0)',
+    transform: showMenu
+      ? 'scale(1.05) translateY(-8px) rotate(45deg)'
+      : 'scale(0.85) translateY(0px) rotate(0)',
   },
 }));
 
@@ -134,7 +142,7 @@ const Navbar = () => {
       <Inner>
         <Link href="/">
           <a>
-            <Cube width="24" height="24" />
+            <ZapIcon width="24" height="24" color="var(--colors-text)" />
           </a>
         </Link>
         <NavList showMenu={showMenu}>
