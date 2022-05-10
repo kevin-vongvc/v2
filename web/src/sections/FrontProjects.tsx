@@ -15,7 +15,7 @@ const Container = styled(motion.div)({
   display: 'flex',
   flexDirection: 'column',
   maxWidth: 1000,
-  minHeight: '70vh',
+  minHeight: '90vh',
   margin: '0 auto',
   padding: '30px 0',
 });

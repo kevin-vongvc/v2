@@ -8,7 +8,7 @@ const Container = styled(motion.div)({
   display: 'flex',
   flexDirection: 'column',
   maxWidth: 1000,
-  minHeight: '30vh',
+  minHeight: '70vh',
   margin: '0 auto',
   padding: '30px 0',
 });
