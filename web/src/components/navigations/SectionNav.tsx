@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Breakpoints } from '@styles/breakpoints';
+import { useInView } from 'react-intersection-observer';
 
 const SectionNav = ({ sections = [] }) => {
   const [activeIdx, setActiveIdx] = React.useState(0);

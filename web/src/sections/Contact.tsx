@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 import { Breakpoints } from '@styles/breakpoints';
 
 const Container = styled(motion.div)({
@@ -27,38 +26,10 @@ const Text = styled('p')({
   },
 });
 
-const moveLeft = {
-  end: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 1.5,
-    },
-  },
-  start: {
-    opacity: 0,
-    x: 200,
-  },
-};
-
 const Contact = () => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView({ threshold: 0 });
-
-  React.useEffect(() => {
-    if (inView) {
-      controls.start('end');
-    }
-  }, [controls, inView]);
-
   return (
-    <Container
-      id="contact"
-      initial="start"
-      animate={controls}
-      variants={moveLeft}
-    >
-      <Title ref={ref}>Let's work together</Title>
+    <Container id="contact">
+      <Title>Let's work together</Title>
       <Text>
         I would love to hear about what project you are working on and discuss
         how I can contribute with my knowledge and experiences.

@@ -2,8 +2,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled/macro';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 import { FrontProjectType } from 'types/project';
 
@@ -51,55 +50,16 @@ const Anchor = styled('a')({
   },
 });
 
-const moveUp = {
-  hidden: { opacity: 0, y: 200 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1.5,
-    },
-  },
-};
-
-const moveRight = {
-  end: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 1.5,
-    },
-  },
-  start: {
-    opacity: 0,
-    x: -200,
-  },
-};
-
 type Props = {
   projects: FrontProjectType[];
 };
 
 const FrontProjects: React.FC<Props> = ({ projects }) => {
-  const controls = useAnimation();
-  const { ref, inView } = useInView({ threshold: 0 });
-
-  React.useEffect(() => {
-    if (inView) {
-      controls.start('end');
-    }
-  }, [controls, inView]);
-
   if (projects && projects.length > 0) {
     return (
-      <Container
-        id="works"
-        initial="start"
-        animate={controls}
-        variants={moveRight}
-      >
+      <Container id="works">
         <Title>Some Things I&#39;ve Built</Title>
-        <ProjectList ref={ref} animate={controls} variants={moveUp}>
+        <ProjectList>
           {projects.map((project, i) => {
             if (project) {
               return (
