@@ -34,7 +34,7 @@ const ProjectLinks = styled.div({
   },
 });
 
-const Name = styled('h2')({
+const Name = styled('a')({
   fontSize: 'calc(0.6rem + 0.4vw)',
   margin: '10px 0 7px',
   color: 'var(--colors-primary)',
@@ -78,7 +78,7 @@ const IconSelector = (link = 'github') => {
 
 const FrontProjectCard = ({ data }) => {
   if (data) {
-    const { title, source, demo, excerpt, tags } = data;
+    const { title, source, demo, excerpt, slug, tags } = data;
 
     return (
       <Container>
@@ -100,7 +100,14 @@ const FrontProjectCard = ({ data }) => {
             ) : null}
           </ProjectLinks>
         ) : null}
-        {title ? <Name>{title}</Name> : null}
+        {title ? (
+          <Name
+            href={`/works/${encodeURIComponent(slug)}`}
+            rel="nofollow noopener noreferrer"
+          >
+            {title}
+          </Name>
+        ) : null}
         <Body>{excerpt}</Body>
         <TagList>
           {tags
