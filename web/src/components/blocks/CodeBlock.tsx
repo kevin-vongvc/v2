@@ -22,13 +22,15 @@ const Header = styled('div')({
   borderRadius: '7px 7px 0 0',
   backgroundColor: 'hsl(220, 13%, 22%)',
   padding: '5px 12px 5px 20px',
+  ':hover': {
+    '> span': {
+      color: 'var(--colors-primary)',
+    },
+  },
 });
 
 const Title = styled('span')({
   fontSize: '0.875rem',
-  ':hover': {
-    color: 'var(--colors-primary)',
-  },
 });
 
 const CodeWrapper = styled(SyntaxHighlighter)({
