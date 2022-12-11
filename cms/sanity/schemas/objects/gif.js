@@ -27,9 +27,6 @@ export default {
       name: 'caption',
       title: 'Caption text',
       type: 'string',
-      options: {
-        isHighlighted: true,
-      },
     },
   ],
 };
