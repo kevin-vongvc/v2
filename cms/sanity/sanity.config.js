@@ -5,7 +5,7 @@ import { codeInput } from '@sanity/code-input';
 import { schemaTypes } from './schemas';
 
 const previewSecret = import.meta.env.SANITY_STUDIO_PREVIEW_SECRET;
-const projectUrl = import.meta.env.NODE_ENV === 'production'
+const projectUrl = import.meta.env.SANITY_STUDIO_NODE_ENV === 'production'
   ? 'https://chivongv.vercel.app'
   : 'http://localhost:3000';
 
