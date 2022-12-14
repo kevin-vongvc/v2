@@ -9,6 +9,7 @@ import { Breakpoints } from '@styles/breakpoints';
 import Layout from '@components/Layout';
 import { NAVBAR_HEIGHT } from '@utils/constants';
 import { DefaultSeo } from '@components/seo/DefaultSeo';
+const Pagination = dynamic(() => import('@components/navigations/Pagination'));
 const ToTopButton = dynamic(() => import('@components/buttons/ToTopButton'));
 const ProjectCard = dynamic(() => import('@components/cards/ProjectCard'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
@@ -41,8 +42,22 @@ const animations = {
   visible: { opacity: 1, y: 0 },
 };
 
+const pageSize = 4;
+
 const Works = ({ allWorks, preview }) => {
   const controls = useAnimation();
+  const [state, setState] = React.useState({
+    currentPage: 1,
+    filteredWorks: allWorks.slice(0, pageSize),
+  });
+  const { currentPage, filteredWorks } = state;
+
+  const handlePageChange = (page: number) => {
+    setState({
+      currentPage: page,
+      filteredWorks: allWorks.slice((page - 1) * pageSize, page * pageSize),
+    });
+  };
 
   React.useEffect(() => {
     if (controls) {
@@ -56,8 +71,9 @@ const Works = ({ allWorks, preview }) => {
       <Container>
         {preview && <AlertPreview redirect="works" />}
         <ProjectList>
-          {allWorks
-            ? allWorks.map((project, i) =>
+          {filteredWorks ? (
+            <>
+              {filteredWorks.map((project, i) =>
                 project ? (
                   <ProjectCardWrapper
                     key={project._id}
@@ -69,8 +85,15 @@ const Works = ({ allWorks, preview }) => {
                     <ProjectCard data={project} />
                   </ProjectCardWrapper>
                 ) : null,
-              )
-            : null}
+              )}
+              <Pagination
+                totalCount={allWorks.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            </>
+          ) : null}
         </ProjectList>
       </Container>
       <SocialBar />

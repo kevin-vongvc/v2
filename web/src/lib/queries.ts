@@ -11,6 +11,7 @@ const sharedFields = `
 
 const sharedProjectFields = `
   _id,
+  publishedDate,
   demo,
   source,
   tags,
