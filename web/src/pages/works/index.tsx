@@ -15,6 +15,8 @@ const ProjectCard = dynamic(() => import('@components/cards/ProjectCard'));
 const SocialBar = dynamic(() => import('@components/SocialBar'));
 const AlertPreview = dynamic(() => import('@components/AlertPreview'));
 
+const pageSize = 3;
+
 const Container = styled('div')({
   display: 'flex',
   minHeight: '85vh',
@@ -36,13 +38,6 @@ const ProjectCardWrapper = styled(motion.li)({
   maxWidth: 1100,
   minWidth: 300,
 });
-
-const animations = {
-  hidden: { opacity: 0, y: 200 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const pageSize = 4;
 
 const Works = ({ allWorks, preview }) => {
   const controls = useAnimation();
@@ -75,13 +70,7 @@ const Works = ({ allWorks, preview }) => {
             <>
               {filteredWorks.map((project, i) =>
                 project ? (
-                  <ProjectCardWrapper
-                    key={project._id}
-                    initial="hidden"
-                    animate="visible"
-                    variants={animations}
-                    transition={{ delay: i * 0.3, duration: 1.5 }}
-                  >
+                  <ProjectCardWrapper key={project._id}>
                     <ProjectCard data={project} />
                   </ProjectCardWrapper>
                 ) : null,
